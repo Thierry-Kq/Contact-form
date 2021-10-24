@@ -6,16 +6,20 @@ use App\Entity\ContactMessage;
 use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\String\Slugger\AsciiSlugger;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 
 class AppFixtures extends Fixture
 {
+    private $slugger;
+
+    public function __construct(SluggerInterface $slugger)
+    {
+        $this->slugger = $slugger;
+    }
 
     public function load(ObjectManager $manager): void
     {
-        $slugger = new AsciiSlugger();
-
         for ($i = 1; $i <= 10; $i++)
         {
             $contactName = 'Visiteur' . $i;
@@ -28,7 +32,7 @@ class AppFixtures extends Fixture
                     ->setFromEmail($contactEmail)
                     ->setFromName($contactName)
                     ->setContent('Contenu du message n°' . $j .  ' de ' . $contactName)
-                    ->setSlug($slugger->slug($contactEmail));
+                    ->setSlug($this->slugger->slug($contactEmail));
                     $manager->persist($contactMessage);  
            }
         }
