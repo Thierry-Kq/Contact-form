@@ -10,3 +10,7 @@
 ###< symfony/framework-bundle ###
 
 .env.local
+
+###> saved private files
+/private/
+###< saved private files

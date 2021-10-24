@@ -30,8 +30,8 @@ class ContactController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid())
         {
-
             $contactMessage->setSlug($slugger->slug($contactMessage->getFromEmail()));
+            $fileSaveService->saveAsJson($contactMessage);
             $entityManager->persist($contactMessage);
             $entityManager->flush();
 
