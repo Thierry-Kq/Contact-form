@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+ <h1>Formulaire de contact</h1>
+
+    {{ form_start(form) }}
+
+    <fieldset>
+        {{ form_label(form.content) }}
+        {{ form_errors(form.content) }}
+        {{ form_widget(form.content) }}
+    </fieldset>
+
+     <fieldset>
+        {{ form_label(form.fromName) }}
+        {{ form_errors(form.fromName) }}
+        {{ form_widget(form.fromName) }}
+    </fieldset>
+
+    <fieldset>
+        {{ form_label(form.fromEmail) }}
+        {{ form_errors(form.fromEmail) }}
+        {{ form_widget(form.fromEmail) }}
+    </fieldset>
+
+   {# <fieldset>
+        {{ form_label(form.fixNumber) }}
+        {{ form_errors(form.fixNumber) }}
+        {{ form_widget(form.fixNumber) }}
+    </fieldset> #}
+
+    <button type="submit" class="btn btn-primary">Valider</button>
+    {{ form_end(form) }}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Tous les messages</h1>
+
+<div>
+    {% for message in messages %}
+        <p>
+        {{ message.fromEmail}} {{message.total}} <a href="{{ path('message_detail', {'slug': message.slug})}}">Lien</a>
+        </p>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+    {% for message in messages %}
+        {% if loop.first %}
+            <h1>Tous les messages de {{ message.fromEmail }}</h1>
+        {% endif %}
+
+        <p>
+        Message : {{message.content}} 
+            <form action="{{ path('message_toggle', {'id' : message.id }) }}">
+                <button>
+                    {% if not message.getIsDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
+                </button>
+            </form>
+
+        </p>
+    {% endfor %}
+{% endblock %}
