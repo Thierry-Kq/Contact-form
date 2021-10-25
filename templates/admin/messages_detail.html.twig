@@ -1,21 +1,36 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Messages{% endblock %}
+
 {% block body %}
+    <div class="container">
+        
 
+        {% for message in messages %}
+            {% if loop.first %}
+                <h1>Tous les messages de {{ message.fromEmail }}</h1>
+            {% endif %}
 
-    {% for message in messages %}
-        {% if loop.first %}
-            <h1>Tous les messages de {{ message.fromEmail }}</h1>
-        {% endif %}
+           {% for message in app.flashes('success') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
 
-        <p>
-        Message : {{message.content}} 
-            <form action="{{ path('message_toggle', {'id' : message.id }) }}">
-                <button>
-                    {% if not message.getIsDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
-                </button>
-            </form>
-
-        </p>
-    {% endfor %}
+            <div>
+                <p>Envoyé le {{ message.createdAt|date("m/d/Y") }} par {{ message.fromName }} </p>
+                <p>
+                Message : {{ message.content }}
+                </p>
+                    <form action="{{ path('message_toggle', {'id' : message.id }) }}">
+                        <button class="btn btn-success">
+                            {% if not message.getIsDone %}Marquer comme faite{% else %}Marquer non terminée{% endif %}
+                        </button>
+                    </form>
+                </p>
+            </div>
+        {% else %}
+            <h1>Aucun message, cet email est peut être incorrect.</h1>
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,15 +1,30 @@
 {% extends 'base.html.twig' %}
-
+{% block title %}Tous les messages{% endblock %}
 {% block body %}
 
-<h1>Tous les messages</h1>
+    <div class="container">
+        <h1>Tous les messages</h1>
 
-<div>
-    {% for message in messages %}
-        <p>
-        {{ message.fromEmail}} {{message.total}} <a href="{{ path('message_detail', {'slug': message.slug})}}">Lien</a>
-        </p>
-    {% endfor %}
+        <table class="table">
+            <thead>
+                <tr>
+                <th scope="col">Email</th>
+                <th scope="col">Total message</th>
+                <th scope="col">Lien</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for message in messages %}
+                    <tr>
+                        <th scope="row">{{ message.fromEmail}}</th>
+                        <td>{{message.total}}</td>
+                        <td><a href="{{ path('message_detail', {'slug': message.slug})}}">Lien</a></td>
+                    </tr>
+                {% else %}
+                    <p>Il n'y a aucun message !</p>
+                {% endfor %}
+            </tbody>
+        </table>
 </div>
 
 {% endblock %}

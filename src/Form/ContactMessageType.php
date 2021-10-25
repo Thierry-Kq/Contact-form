@@ -37,7 +37,7 @@ class ContactMessageType extends AbstractType
                     new Length([
                         'max' => 255,
                         'maxMessage' => 'Votre nom est trop long',
-                        'min' => 30,
+                        'min' => 5,
                         'minMessage' => 'Votre nom est trop court'
                     ])
                 ]
