@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\ContactMessage;
 use App\Form\ContactMessageType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\FileSaveService;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,8 @@ class ContactController extends AbstractController
     public function contactMessage(
         Request $request,
         EntityManagerInterface $entityManager,
-        SluggerInterface $slugger
+        SluggerInterface $slugger,
+        FileSaveService $fileSaveService
     ): Response
     {
         $contactMessage = new ContactMessage();
@@ -34,7 +36,8 @@ class ContactController extends AbstractController
             $entityManager->persist($contactMessage);
             $entityManager->flush();
 
-            // todo : addflash 
+            $this->addFlash('success', 'Votre message à bien été envoyé');
+
             return $this->redirectToRoute('contact');
         }
 

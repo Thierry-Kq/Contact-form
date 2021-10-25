@@ -19,9 +19,7 @@ class AdminController extends AbstractController
         ContactMessageRepository $repository
     ): Response
     {
-        // todo : deny acces if not admin
         $messages = $repository->findGroupedByEmail();
-
         return $this->render('admin/messages_list.html.twig', [
             'messages' => $messages
         ]);
@@ -41,6 +39,8 @@ class AdminController extends AbstractController
         $contactMessage->toggle(!$contactMessage->getIsDone());
         $entityManager->flush();
 
+        $message = $contactMessage->getIsDone() ? 'Le message à bien été traité' : 'Le message est à traiter à nouveau';
+        $this->addFlash('success', $message);
         return $this->redirectToRoute('message_detail', [
             'slug' => $contactMessage->getSlug()
         ]);

@@ -23,12 +23,7 @@ class ContactMessageRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('c')
             ->select('c.fromEmail', 'count(c.fromEmail) as total', 'c.createdAt', 'c.slug')
-            // ->andWhere('c.email = :val')
-            // ->setParameter('val', $value)
-            // ->orderBy('c.id', 'ASC')
-            // ->setMaxResults(10)
             ->groupBy('c.fromEmail')
-            // ->orderBy('c.createdAt', 'DESC')
             ->getQuery()
             ->getResult();
     }

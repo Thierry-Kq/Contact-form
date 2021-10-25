@@ -1,29 +1,39 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+{% block title %}Demande de contact{% endblock %}
 {% block body %}
 
- <h1>Formulaire de contact</h1>
+    <div class="container">
+        <h1>Formulaire de contact</h1>
 
-    {{ form_start(form) }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+        
+        {{ form_start(form) }}
 
-    <fieldset>
-        {{ form_label(form.content) }}
-        {{ form_errors(form.content) }}
-        {{ form_widget(form.content) }}
-    </fieldset>
+        <fieldset>
+            {{ form_label(form.fromName) }}
+            {{ form_errors(form.fromName) }}
+            {{ form_widget(form.fromName) }}
+        </fieldset>
 
-     <fieldset>
-        {{ form_label(form.fromName) }}
-        {{ form_errors(form.fromName) }}
-        {{ form_widget(form.fromName) }}
-    </fieldset>
+        <fieldset>
+            {{ form_label(form.fromEmail) }}
+            {{ form_errors(form.fromEmail) }}
+            {{ form_widget(form.fromEmail) }}
+        </fieldset>
 
-    <fieldset>
-        {{ form_label(form.fromEmail) }}
-        {{ form_errors(form.fromEmail) }}
-        {{ form_widget(form.fromEmail) }}
-    </fieldset>
+        <fieldset>
+            {{ form_label(form.content) }}
+            {{ form_errors(form.content) }}
+            {{ form_widget(form.content) }}
+        </fieldset>
 
-    <button type="submit">Valider</button>
-    {{ form_end(form) }}
+        <button type="submit" class="btn btn-success">Valider</button>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
